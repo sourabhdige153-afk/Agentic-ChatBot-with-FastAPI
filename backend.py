@@ -12,7 +12,7 @@ app = FastAPI(
     description="An intelligent AI ChatBot that can perform web searches using the Tavily Search tool.",
     version="1.0.0",
     openapi_url="/api/openapi.json",
-    docs_url="/api/docs",
+    docs_url="/docs",
     redoc_url="/api/redoc",
     root_path="/myapp"
 )
@@ -63,9 +63,9 @@ async def chat_endpoint(request_body: RequestBody):
         
         return JSONResponse(content=response, status_code=200)
     except Exception as e:
-        return JSONResponse(content={"error": f"{e}"}, status_code=500)
+        return JSONResponse(content={"error": f"{str(e)}"}, status_code=500)
     
     
 
 if __name__ == "__main__":
-    uvicorn.run("backend:app", host="0.0.0.0", port=8000)
+    uvicorn.run("backend:app", host="127.0.0.1", port=8000)

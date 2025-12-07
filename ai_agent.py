@@ -47,8 +47,8 @@ def get_response_from_agent(model_name: str, model_provider: str, system_prompt:
         messages = response.get("messages")
         ai_msg= [message.content for message in messages if isinstance( message, AIMessage)]
         response = ai_msg[-1]
-        # print(" Response:", ai_msg[-1])
+        response = response.replace("</s>", "")
         return response
     except Exception as e:
         logging.error(f"Error in get_response_from_agent: {str(e)}")
-        raise Exception(f"Error in get_response_from_agent: {str(e)}")
+        raise Exception(f"Error in get_response_from_agent: {e}")
