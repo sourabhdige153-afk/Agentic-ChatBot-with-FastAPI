@@ -1,0 +1,1 @@
+ALLOWED_MODELS = ["llama-3.3-70b-versatile","gpt-4o-mini","openai/gpt-oss-120b","llama-3.1-8b-instant"]

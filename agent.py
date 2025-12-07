@@ -2,7 +2,8 @@ import os
 from dotenv import load_dotenv
 from langchain_groq import ChatGroq
 from langchain_openai import ChatOpenAI
-from langchain_community.tools.tavily_search import TavilySearchResults
+# from langchain_community.tools.tavily_search import TavilySearchResults
+from langchain_tavily import TavilySearch
 from langgraph.graph import StateGraph, END
 from typing import TypedDict,  List
 
@@ -19,7 +20,8 @@ open_api_key = os.getenv("OpenApiKey")
 
 openai_llm = ChatOpenAI(model="gpt-4o-mini", api_key=open_api_key)
 groq_llm = ChatGroq(model="llama-3.3-70b-versatile", api_key=groq_api_key)
-search_tool = TavilySearchResults(max_results=2, tavily_api_key=tavily_api_key)
+# search_tool = TavilySearchResults(max_results=2, tavily_api_key=tavily_api_key)
+search_tool = TavilySearch(max_results=2, tavily_api_key=tavily_api_key)
 
 # agent = create_react_agent(
 #     model=groq_llm,
@@ -60,7 +62,7 @@ graph.add_conditional_edges(
     }
 )
 
-graph.add_edge("search", "llm")
+graph.add_edge("search", END)
 agent = graph.compile()
 
 
