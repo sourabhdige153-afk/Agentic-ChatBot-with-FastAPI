@@ -3,7 +3,8 @@ import logging
 from dotenv import load_dotenv
 from langchain_groq import ChatGroq
 from langchain_openai import ChatOpenAI
-from langchain_community.tools.tavily_search import TavilySearchResults
+# from langchain_community.tools.tavily_search import TavilySearchResults
+from langchain_tavily import TavilySearch
 from langgraph.graph import StateGraph, END
 from langgraph.prebuilt import create_react_agent
 from langchain_core.messages.ai import AIMessage
@@ -33,8 +34,8 @@ def get_response_from_agent(model_name: str, model_provider: str, system_prompt:
             logging.error(f"Invalid Model Provider: {model_provider}")
             raise Exception("Invalid Model Provider. Please choose either 'Groq' or 'OpenAI'.")
         
-        search_tool = [TavilySearchResults(max_results=2, tavily_api_key=tavily_api_key)] if allow_search else []
-        
+        # search_tool = [TavilySearchResults(max_results=2, tavily_api_key=tavily_api_key)] if allow_search else []
+        search_tool = [TavilySearch(max_results=2, tavily_api_key=tavily_api_key)] if allow_search else []
         agent = create_react_agent(
             model=llm,
             tools=search_tool,
